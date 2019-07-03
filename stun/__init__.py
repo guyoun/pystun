@@ -244,8 +244,11 @@ def get_nat_type(s, source_ip, source_port, stun_host=None, stun_port=3478):
     return typ, ret
 
 
-def get_ip_info(source_ip="0.0.0.0", source_port=54320, stun_host=None,
-                stun_port=3478):
+def get_ip_info(source_ip="0.0.0.0", source_port=None,
+                stun_host=None, stun_port=None):
+    stun_port = stun_port or DEFAULTS['stun_port']
+    source_port = source_port or DEFAULTS['source_port']
+
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.settimeout(2)
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
